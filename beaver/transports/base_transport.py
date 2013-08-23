@@ -71,13 +71,8 @@ class BaseTransport(object):
         if formatter not in self._formatters:
             formatter = self._default_formatter
 
-        if self._beaver_config.get('source_add_host'):
-            source = 'file://{0}{1}'.format(self._current_host, filename)
-        else:
-            source = 'file://{0}'.format(filename)
-
         return self._formatters[formatter]({
-            '@source': source,
+            '@source': 'file://{0}'.format(filename),
             '@type': kwargs.get('type'),
             '@tags': kwargs.get('tags'),
             '@fields': kwargs.get('fields'),
