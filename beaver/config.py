@@ -97,6 +97,9 @@ class BeaverConfig():
             # path to sincedb sqlite db
             'sincedb_path': '',
 
+            # whether to add `host` to `@source`
+            'source_add_host': '1',
+
             # ssh tunnel support
             'ssh_key_file': '',
             'ssh_tunnel': '',
@@ -227,7 +230,7 @@ class BeaverConfig():
 
     def _parse(self, args):
         def _main_parser(config):
-            transpose = ['config', 'confd_path', 'debug', 'daemonize', 'files', 'format', 'fqdn', 'hostname', 'path', 'pid', 'transport']
+            transpose = ['config', 'confd_path', 'debug', 'daemonize', 'files', 'format', 'fqdn', 'hostname', 'path', 'pid', 'source_add_host', 'transport']
             namspace_dict = vars(args)
             for key in transpose:
                 if key not in namspace_dict or namspace_dict[key] is None or namspace_dict[key] == '':
@@ -244,7 +247,7 @@ class BeaverConfig():
                 if config[key] == '':
                     config[key] = None
 
-            require_bool = ['debug', 'daemonize', 'fqdn', 'rabbitmq_exchange_durable', 'rabbitmq_queue_durable', 'rabbitmq_ha_queue']
+            require_bool = ['debug', 'daemonize', 'fqdn', 'rabbitmq_exchange_durable', 'rabbitmq_queue_durable', 'rabbitmq_ha_queue', 'source_add_host']
 
             for key in require_bool:
                 config[key] = bool(int(config[key]))
